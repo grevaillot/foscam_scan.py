@@ -8,7 +8,15 @@ import sys, time
 from socket import *
 from struct import *
 
-magic = '\x4d\x4f\x5f\x49\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x04\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00\x01'
+header = '\x4d\x4f\x5f\x49'  # MO_I
+magic_opcode = '\x00\x00'    # opcode = 0
+reserve_0 = '\x00'           # always 0
+reserve_1 = '\x00\x00\x00\x00\x00\x00\x00\x00' # 8 byte len string
+magic_order_len = '\x04\x00\x00\x00' # order len
+reserve_3 = '\x04\x00\x00\x00'
+order = '\x00\x00\x00\x01'
+
+magic = header + magic_opcode + reserve_0 + reserve_1 + magic_order_len + reserve_3  + order
 
 s = socket(AF_INET, SOCK_DGRAM)
 s.bind(('', 10000))
