@@ -158,7 +158,10 @@ while 1:
 
     (data, addr) = s.recvfrom(1024)
 
-    FoscamUDPPacket(udpPacket=data).parse()
+    try:
+        FoscamUDPPacket(udpPacket=data).parse()
+    except Exception as err:
+        print err
 
     print "-------------------------------------------------------------------"
 
